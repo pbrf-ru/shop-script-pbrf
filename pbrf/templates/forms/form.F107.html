@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <link type="text/css" href="/wa-apps/shop/plugins/pbrf/css/forms.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="twelve columns">
+            <form class="twelve columns" method="post" action="?action=generateBlank&blank=F107&order={$order.id}&plugin=pbrf" id="blanks">
+                {$wa->csrf()}
+                <fieldset>
+                    <fieldset id="recipient" class="validationEngineContainer">
+                        <legend>Данные получателя</legend>
+                        <div class="row">
+                            <div class="two columns">
+                                <label class="inline right">Кому</label>
+                            </div>
+                            <div class="six columns left">
+                                <input placeholder="Жуков Максим Александрович" id="whom" class="twelve capitalize" type="text" name="F107[whom]" value="{$order.contact.firstname} {$order.contact.lastname}" maxlength="40">
+                            </div>
+                            <div class="four columns left">
+                                <label class="inline left">Фамилия Имя Отчество</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="two columns">
+                                <label class="inline right">Страна</label>
+                            </div>
+                            <div class="four columns left end">
+                                <input placeholder="Название страны" id="country" class="twelve capitalize" type="text" name="F107[whom_country]" value="{if !empty($order.shipping_address.country_name)}{$order.shipping_address.country_name|escape}{/if}">
+                            </div>
+
+                            <div class="one columns">
+                                <label class="inline right">Адрес</label>
+                            </div>
+                            <div class="three columns left end">
+                                <input placeholder="Название города" id="city" class="twelve" type="text" name="F107[whom_city]" value="{if !empty($order.shipping_address.city)}{$order.shipping_address.city|escape}{/if}{if !empty($order.shipping_address.street)}, {$order.shipping_address.street|escape}{/if}">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div id="other" class="validationEngineContainer">
+                        <fieldset>
+                            <legend>Опись</legend>
+                            <div class="row">
+                                <div class="two columns">
+                                    <label class="inline right">вложения в</label>
+                                </div>
+                                <div class="six columns left end">
+                                    <input placeholder="девять предметов как они есть" id="investment" class="twelve" type="text" name="F107[investment]" value="" maxlength="20">
+                                </div>
+
+                            </div>
+                        </fieldset>
+                        <fieldset id="subject">
+                            <legend>Список предметов</legend>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td class="text-center one">№</td>
+                                        <td class="text-center seven">Наименование предмета</td>
+                                        <td class="text-center two">Кол-во предметов</td>
+                                        <td class="text-center two">Объявленная ценность<br>(руб.)</td>
+
+                                    </tr></thead>
+                                <tbody>
+                                    {$total.elements = 0}
+                                    {$total.summ = 0}
+                                    {foreach $order.items as $key => $item}
+                                    {$i = $key+1}
+                                    {$total.elements = $total.elements+$item.quantity}
+                                    {$total.summ = $total.summ+$item.total}
+                                    <tr class="object" rel="1">
+                                        <td class="text-center" valign="middle"><b>{$i}</b></td>
+                                        <td><input placeholder="предмет" type="text" class="twelve" name="F107[object][{$key}][name]" value="{$item.name}" maxlength="20"></td>
+                                        <td><input placeholder="число" type="text" class="twelve count onlyNumber" name="F107[object][{$key}][count]" value="{$item.quantity}"></td>
+                                        <td><input placeholder="0.99" type="text" class="twelve price onlyNumber addPoint" name="F107[object][{$key}][price]" value="{$item.total}"></td>
+                                    </tr>
+                                    {/foreach}
+
+                                    <tr id="total">
+                                        <td colspan="2" class="text-right">Общий итог предметов и объявленной ценности</td>
+                                        <td id="total_count" class="text-center">
+
+
+                                            <span>{$total.elements}</span>
+                                            <input type="hidden" name="F107[total][count]" value="{$total.elements}">
+                                        </td>
+                                        <td id="total_price" class="text-center">
+                                            <span>{$total.summ}</span>
+                                            <input type="hidden" name="F107[total][price]" value="{$total.summ}">
+                                        </td>
+
+                                    </tr></tbody>				
+                            </table>
+                        </fieldset>
+                    </div>    
+                    <div class="row">
+                        <div class="twelve columns text-center icons-print-pdf columns">
+                            <input type="submit" value="Генерировать" >
+                        </div>
+                    </div>
+                </fieldset>            
+            </form>
+        </div>
+    </body>
+</html>

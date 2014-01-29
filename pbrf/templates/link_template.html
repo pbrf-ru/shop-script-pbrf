@@ -1,0 +1,6 @@
+<li>
+    <a style="display:inline;" href="?plugin=pbrf&action=getBlank&blank={$blankID}&order={$pbrf_order.id}" target="_blank">{$bInfo.{$blankID}.name}</a>
+    {if isset($pbrf_order.params.{$paramBId})}
+    &nbsp&nbsp&nbsp<a style="display:inline;" target="_blank" href="{$pbrf_order.params.{$paramBId}}">(скачать)</a>
+    {/if}
+</li>

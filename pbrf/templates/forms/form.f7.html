@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <link type="text/css" href="/wa-apps/shop/plugins/pbrf/css/forms.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="nine columns">
+            <form class="twelve columns" method="post" action="?action=generateBlank&blank=F7&order={$order.id}&plugin=pbrf" id="blanks">
+                {$wa->csrf()}
+                <fieldset> 
+                    <fieldset id="recipient" >
+                        <legend>Данные получателя</legend>
+                        <div class="row">
+                            <div class="two columns">
+                                <label class="inline right">Кому</label>
+                            </div>
+                            <div class="four columns left">
+
+                                <input placeholder="Жуков" id="whom_surname" type="text" value="{$order.contact.lastname}" rel="" name="F7[whom_surname]" class="twelve capitalize" maxlength="30">
+                            </div>
+                            <div class="six columns">
+                                <label class="inline left">Фамилия</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="two columns">
+                                <label class="inline right">&nbsp;</label>
+                            </div>
+                            <div class="six columns left">
+                                <input placeholder="Максим Александрович" id="whom_name" type="text" value="{$order.contact.firstname}" rel="" name="F7[whom_name]" class="twelve" maxlength="38">
+                            </div>
+                            <div class="four columns">
+                                <label class="inline left">Имя Отчество</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="two columns">
+                                <label class="inline right">Город</label>
+                            </div>
+                            <div class="six columns end">
+                                <input placeholder="Название города" id="whom_city" type="text" name="F7[whom_city]" class="twelve" value="{if !empty($order.shipping_address.city)}{$order.shipping_address.city|escape}{/if}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="two columns">
+                                <label class="inline right">Улица</label>
+                            </div>
+                            <div class="three columns">
+                                <input placeholder="Тверская улица" id="whom_street" type="text" name="F7[whom_street]" class="twelve" value="{if !empty($order.shipping_address.street)}{$order.shipping_address.street|escape}{/if}">
+                            </div>
+                            <div class="two columns">
+                                <label class="inline right">Дом, квартира</label>
+                            </div>
+                            <div class="two columns left end">
+                                <input placeholder="12с9" id="whom_build" type="text" name="F7[whom_build]" class="twelve" value="" maxlength="6">
+                            </div>
+                        </div>      
+                        <div class="row">
+                            <div class="three columns">
+                                <label class="inline right">Почтовый индекс</label>
+                            </div>
+                            <div class="three columns left end">
+                                <input placeholder="121115" id="whom_zip" type="text" value="{if !empty($order.shipping_address.zip)}{$order.shipping_address.zip|escape}{/if}" rel="" name="F7[whom_zip]" class="twelve">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset id="sender" class="validationEngineContainer">
+                        <legend>Данные отправителя</legend>
+                        <div class="row">
+                            <div class="two columns">
+                                <label class="inline right">От кого</label>
+                            </div>
+                            <div class="four columns left">
+                                <input placeholder="Страшнов" id="from_surname" type="text" value="{if !empty($settings.lastname)}{$settings.lastname|escape}{/if}" rel="" name="F7[from_surname]" class="twelve capitalize" maxlength="25">
+                            </div>
+                            <div class="six columns">
+                                <label class="inline left">Фамилия</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="two columns">
+                                <label class="inline right">&nbsp;</label>
+                            </div>
+                            <div class="six columns left">
+                                <input placeholder="Дмитрий Евгеньевич" id="from_name" type="text" value="{if !empty($settings.firstname)}{$settings.firstname|escape}{/if}{if !empty($settings.patronymic)} {$settings.patronymic|escape}{/if}" rel="" name="F7[from_name]" class="twelve" maxlength="32">
+                            </div>
+                            <div class="four columns">
+                                <label class="inline left">Имя Отчество</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="two columns">
+                                <label class="inline right">Город</label>
+                            </div>
+                            <div class="six columns end">
+                                <input placeholder="Название города" id="from_city" type="text" name="F7[from_city]" class="twelve" value="{if !empty($settings.city)}{$settings.city|escape}{/if}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="two columns">
+                                <label class="inline right">Улица</label>
+                            </div>
+                            <div class="three columns">
+                                <input placeholder="Варшавское шоссе" id="from_street" type="text" name="F7[from_street]" class="twelve" value="{if !empty($settings.street)}{$settings.street|escape}{/if}">
+                            </div>
+                            <div class="two columns">
+                                <label class="inline right">Дом, квартира</label>
+                            </div>
+                            <div class="two columns  left end">
+                                <input placeholder="37" id="from_build" type="text" name="F7[from_build]" class="twelve" value="{if !empty($settings.home)}{$settings.home|escape}{/if}{if !empty($settings.flat)}, кв.{$settings.flat|escape}{/if}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="three columns">
+                                <label class="inline right">Почтовый индекс</label>
+                            </div>
+                            <div class="three columns left end">
+                                <input placeholder="131000" id="from_zip" type="text" value="{if !empty($settings.zip)}{$settings.zip|escape}{/if}" rel="" name="F7[from_zip]" class="eight" maxlength="6">
+                            </div>
+                        </div>
+
+                    </fieldset>
+                    <div id="other" class="validationEngineContainer">
+                        <fieldset>
+                            <div class="row">
+                                <div class="five columns">
+                                    <label class="inline right">Сумма объявленной ценности</label>
+                                </div>
+                                <div class="three columns left end">
+                                    <input placeholder="0.99" id="declared_value" type="text" name="F7[declared_value]" class="twelve onlyNumber addPoint" value="{$order.total-$order.shipping}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="five columns">
+                                    <label class="inline right">Сумма наложенного платежа</label>
+                                </div>
+                                <div class="three columns left end">
+                                    <input placeholder="0.99" id="COD_amount" type="text" name="F7[COD_amount]" class="twelve onlyNumber addPoint" value="{$order.total}">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div><!--other-->
+                    <fieldset>
+                        <legend>Вид бланка ярлыка</legend>
+                        <div class="twelve columns">
+                            <label for="type_a"><input name="F7[type_blank]" type="radio" id="type_a" checked="" value="a"> Отправление 1 класса</label>
+                            <label for="type_b"><input name="F7[type_blank]" type="radio" id="type_b" value="b"> Бандероль</label>
+                            <label for="type_p"><input name="F7[type_blank]" type="radio" id="type_p" value="p"> Посылка</label>
+                        </div>
+                    </fieldset>
+                    <div class="row">
+                        <div class="twelve columns text-center icons-print-pdf columns">
+                            <input type="submit" value="Генерировать" >
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </body>
+</html>

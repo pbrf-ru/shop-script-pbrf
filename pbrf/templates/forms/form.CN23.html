@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <link type="text/css" href="/wa-apps/shop/plugins/pbrf/css/forms.css" rel="stylesheet">
+    </head>
+    <body>
+
+        <div class="twelve columns">
+            <form class="twelve columns" method="post" action="?action=generateBlank&blank=CN23&order={$order.id}&plugin=pbrf" id="blanks">
+                {$wa->csrf()}
+                <fieldset>    
+                    <fieldset id="recipient" class="validationEngineContainer">
+                        <legend>Данные получателя</legend>
+                        <div class="row">
+                            <div class="two columns">
+                                <label class="inline right">Кому</label>
+                            </div>
+                            <div class="six columns left">
+                                <input placeholder="Жуков Максим Александрович" id="surname_whom" type="text" value="{$order.contact.lastname} {$order.contact.firstname}" rel="" name="CN23[surname_whom]" class="twelve capitalize" maxlength="50">
+                            </div>
+                            <div class="four columns">
+                                <label class="inline left">Фамилия Имя Отчество</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="two columns">
+                                <label class="inline right">Страна</label>
+                            </div>
+                            <div class="four columns left end">
+                                <input placeholder="Название страны" id="country_whom" type="text" value="{if !empty($order.shipping_address.country_name)}{$order.shipping_address.country_name|escape}{/if}" rel="" name="CN23[country_whom]" class="twelve capitalize">
+                            </div>
+                            <div class="two columns">
+                                <label class="inline right">Город</label>
+                            </div>
+                            <div class="four columns left end">
+                                <input placeholder="Название города" id="city_whom" type="text" value="{if !empty($order.shipping_address.city)}{$order.shipping_address.city|escape}{/if}" rel="" name="CN23[city_whom]" class="twelve" maxlength="28">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="two columns">
+                                <label class="inline right">Улица</label>
+                            </div>
+                            <div class="three columns left">
+                                <input placeholder="Тверская" id="street_whom" type="text" value="{if !empty($order.shipping_address.street)}{$order.shipping_address.street|escape}{/if}" rel="" name="CN23[street_whom]" class="twelve" maxlength="36">
+                            </div>
+                            <div class="one columns">
+                                <label class="inline right">Дом</label>
+                            </div>
+                            <div class="two columns left">
+                                <input placeholder="12с9" id="build_whom" type="text" value="" rel="" name="CN23[build_whom]" class="twelve" maxlength="7">
+                            </div>
+                            <div class="two columns">
+                                <label class="inline right">Квартира</label>
+                            </div>
+                            <div class="two columns left">
+                                <input placeholder="1" id="appartment_whom" type="text" value="" rel="" name="CN23[appartment_whom]" class="twelve" maxlength="7">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="three columns">
+                                <label class="inline right">Почтовый индекс</label>
+                            </div>
+                            <div class="three columns left end">
+                                <input placeholder="121115" id="zip_whom" type="text" value="{if !empty($order.shipping_address.zip)}{$order.shipping_address.zip|escape}{/if}" rel="" name="CN23[zip_whom]" class="twelve" maxlength="10">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset id="sender" class="validationEngineContainer">
+                        <legend>Данные отправителя</legend>
+                        <div class="row">
+                            <div class="two columns">
+                                <label class="inline right">От кого</label>
+                            </div>
+                            <div class="six columns left">
+                                <input placeholder="Страшнов Дмитрий Евгеньевич" id="surname" type="text" value="{$settings.lastname} {$settings.patronymic} {$settings.firstname}" rel="" name="CN23[surname]" class="twelve capitalize" maxlength="36">
+                            </div>
+                            <div class="four columns">
+                                <label class="inline left">Фамилия Имя Отчество</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="two columns">
+                                <label class="inline right">Страна</label>
+                            </div>
+                            <div class="four columns left">
+                                <input placeholder="Название страны" id="country" type="text" value="{$settings.country}" rel="" name="CN23[country]" class="twelve capitalize">
+                            </div>
+                            <div class="two columns">
+                                <label class="inline right">Город</label>
+                            </div>
+                            <div class="four columns left">
+                                <input placeholder="Название города" id="city" type="text" value="{$settings.city}" rel="" name="CN23[city]" class="twelve" maxlength="28">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="two columns">
+                                <label class="inline right">Улица</label>
+                            </div>
+                            <div class="three columns left">
+                                <input placeholder="Варшавское шоссе" id="street" type="text" value="{$settings.street}" rel="" name="CN23[street]" class="twelve" maxlength="36">
+                            </div>
+                            <div class="one columns">
+                                <label class="inline right">Дом</label>
+                            </div>
+                            <div class="two columns left">
+                                <input placeholder="37" id="build" type="text" value="{$settings.home}" rel="" name="CN23[build]" class="twelve" maxlength="7">
+                            </div>
+                            <div class="two columns">
+                                <label class="inline right">Квартира</label>
+                            </div>
+                            <div class="two columns left">
+                                <input placeholder="1" id="appartment" type="text" value="{$settings.flat}" rel="" name="CN23[appartment]" class="twelve" maxlength="7">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="three columns">
+                                <label class="inline right">Почтовый индекс</label>
+                            </div>
+                            <div class="three columns left end">
+                                <input placeholder="131000" id="zip" type="text" value="{$settings.zip}" rel="" name="CN23[zip]" class="twelve" maxlength="10">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div id="other" class="validationEngineContainer">
+                        <fieldset id="subject">
+                            <legend>Список предметов</legend>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td class="text-center six">Подробное описание вложения</td>
+                                        <td class="text-center two">Количество</td>
+                                        <td class="text-center two">Вес нетто<br>(в кг)</td>
+                                        <td class="text-center two">Стоимость</td>
+
+                                    </tr></thead>
+                                <tbody>
+                                    {$total.elements = 0}
+                                    {$total.summ = 0}
+                                    {foreach $order.items as $key => $item}
+                                    {$total.elements = $total.elements+$item.quantity}
+                                    {$total.summ = $total.summ+$item.total}
+
+                                    <tr class="object" rel="1">
+                                        <td><input placeholder="предмет" type="text" class="twelve" name="CN23[object][{$key}][name]" value="{$item.name}" maxlength="26"></td>
+                                        <td><input placeholder="число" type="text" class="twelve onlyNumber" name="CN23[object][{$key}][count]" value="{$item.quantity}"></td>
+                                        <td><input placeholder="число" type="text" class="twelve count onlyNumber addPoint" name="CN23[object][{$key}][brut]" value="0"></td>
+                                        <td><input placeholder="0.99" type="text" class="twelve price onlyNumber addPoint" name="CN23[object][{$key}][price]" value="{$item.price}"></td>
+                                    </tr>
+                                    {/foreach}
+
+                                    <tr id="total">
+                                        <td colspan="2" class="text-right">Общий вес брутто | Общая стоимость</td>
+                                        <td id="total_count" class="text-center" style="vertical-align:middle">
+                                            <span>0</span>
+                                            <input type="hidden" name="CN23[total][count]" value="0">
+                                        </td>
+                                        <td id="total_price" class="text-center" style="vertical-align:middle">
+                                            <span>{$total.summ}</span>
+                                            <input type="hidden" name="CN23[total][price]" value="{$total.summ}">
+                                        </td>
+
+                                    </tr></tbody>        
+                            </table>
+                        </fieldset>
+                    </div>
+                    <div class="row">
+                        <div class="twelve columns text-center icons-print-pdf columns">
+                            <input type="submit" value="Генерировать" >
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </body>
+</html>
